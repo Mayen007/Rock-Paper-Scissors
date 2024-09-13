@@ -17,4 +17,4 @@ A simple implementation of the classic "Rock, Paper, Scissors" game, built using
 ## Installation
 1. Clone the repository to your local machine:
    ```bash
-   git clone https://github.com/mayen007/rock-paper-scissors.git
+   git clone https://github.com/Mayen007/rock-paper-scissors.git
