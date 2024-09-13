@@ -12,28 +12,35 @@
 <body>
   <main class="container">
     <h1 class="title">Rock Paper Scissors</h1>
+    <p class="subtitle">Select an icon below to play Rock, Paper, Scissors.</p>
     <div class="btn-group">
-      <button onclick="playGame('rock')" title="Rock" class="move-button">
+      <button title="Rock" class="move-button js-rock-button">
         <img src="./images/rock-emoji.png" alt="" class="move-icon">
       </button>
-      <button onclick="playGame('paper')" title="Paper" class="move-button">
+      <button title="Paper" class="move-button js-paper-button">
         <img src="./images/paper-emoji.png" alt="" class="move-icon mover">
       </button>
-      <button onclick="playGame('scissors')" title="Scissors" class="move-button">
+      <button title="Scissors" class="move-button js-scissors-button">
         <img src="./images/scissors-emoji.png" alt="" class="move-icon">
       </button>
     </div>
     <p class="js-result result"></p>
     <p class="js-moves"></p>
-    <p class="js-score scissors"></p>
-    <button onclick="
-    score.wins = 0;
-    score.losses = 0;
-    score.ties = 0;
-    localStorage.removeItem('score');
-    updateScoreElement();
-    " class="reset-score">Reset Score</button>
-
+    <p class="js-score"></p>
+    <div class="btn-group">
+      <button class="reset-score js-reset-score">Reset Score</button>
+      <button class="auto-play js-auto-play">Auto-Play</button>
+    </div>
+    <div class="key-div">
+      <h4>Shortcuts</h4>
+      <ul>
+        <li><strong>R</strong> = Rock</li>
+        <li><strong>P</strong> = Paper</li>
+        <li><strong>S</strong> = Scissors</li>
+        <li><strong>A</strong> = Auto-play</li>
+        <li><strong>Backspace</strong> = Reset Score</li>
+      </ul>
+    </div>
   </main>
   <script src="./styles/script.js"></script>
 </body>
