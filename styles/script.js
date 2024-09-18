@@ -35,22 +35,13 @@ document.querySelector('.js-paper-button').addEventListener('click', () => {
 document.querySelector('.js-scissors-button').addEventListener('click', () => {
   playGame('scissors');
 });
+document.querySelector('.js-reset-score').addEventListener('click', () => {
+  resetScore();
+});
 
 document.querySelector('.js-auto-play').addEventListener('click', () => {
   autoPlay();
 });
-
-document.querySelector('.js-reset-score').addEventListener('click', () => {
-  let userInput = confirm("Reset the score?");
-  if (userInput) {
-    score.wins = 0;
-    score.losses = 0;
-    score.ties = 0;
-    localStorage.removeItem('score');
-    updateScoreElement();
-  }
-
-})
 
 document.body.addEventListener('keydown', (event) => {
   if (event.key === 'r') {
@@ -63,14 +54,7 @@ document.body.addEventListener('keydown', (event) => {
   else if (event.key === 'a') {
     autoPlay();
   } else if (event.key === 'Backspace') {
-    let userInput = confirm("Reset the score?");
-    if (userInput) {
-      score.wins = 0;
-      score.losses = 0;
-      score.ties = 0;
-      localStorage.removeItem('score');
-      updateScoreElement();
-    }
+    resetScore();
   }
 });
 
@@ -142,3 +126,23 @@ function pickComputerMove() {
 
   return computerMove;
 }
+
+function resetScore() {
+  const modal = document.getElementById('reset-modal');
+  modal.style.display = 'flex';
+  modal.style.alignItems = 'center';
+  modal.style.justifyContent = 'center';
+
+  const closeModal = () => modal.style.display = 'none';
+
+  document.getElementById('confirm-reset').onclick = () => {
+    score.wins = 0;
+    score.losses = 0;
+    score.ties = 0;
+    localStorage.removeItem('score');
+    updateScoreElement();
+    closeModal();
+  };
+
+  document.getElementById('cancel-reset').onclick = closeModal;
+};
