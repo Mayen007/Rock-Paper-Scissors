@@ -131,7 +131,7 @@ body {
   margin-bottom: 8px;
 }
 
-@media (min-width: 768px) and (orientation: portrait) {
+@media (min-width: 768px) {
   .key-div {
     display: block;
     position: absolute;
