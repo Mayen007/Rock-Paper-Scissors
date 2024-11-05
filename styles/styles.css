@@ -137,6 +137,10 @@ body {
   margin-bottom: 15px;
 }
 
+.key-div ul li {
+  list-style: none;
+}
+
 .key-div p {
   margin-bottom: 8px;
 }
