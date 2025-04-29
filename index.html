@@ -15,13 +15,13 @@
     <p class="subtitle">Select an icon below to play Rock, Paper, Scissors.</p>
     <div class="btn-group">
       <button title="Rock" class="move-button js-rock-button">
-        <img src="./images/rock-emoji.png" alt="" class="move-icon">
+        <img src="./images/rock-emoji.png" alt="Rock emoji" class="move-icon">
       </button>
       <button title="Paper" class="move-button js-paper-button">
-        <img src="./images/paper-emoji.png" alt="" class="move-icon mover">
+        <img src="./images/paper-emoji.png" alt="Paper emoji" class="move-icon ">
       </button>
       <button title="Scissors" class="move-button js-scissors-button">
-        <img src="./images/scissors-emoji.png" alt="" class="move-icon">
+        <img src="./images/scissors-emoji.png" alt="Scissors emoji" class="move-icon">
       </button>
     </div>
     <p class="js-result result"></p>
@@ -41,7 +41,8 @@
         <li><strong>Backspace</strong> = Reset Score</li>
       </ul>
     </div>
-    <div id="reset-modal" class="modal">
+    <div id="reset-modal" class="modal" tabindex="-1" role="dialog" aria-labelledby="reset-modal-label"
+      aria-hidden="true">
       <div class="modal-content">
         <p>Are you sure you want to reset the score?</p>
         <button id="confirm-reset">Yes</button>

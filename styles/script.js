@@ -96,7 +96,7 @@ function playGame(playerMove) {
     score.wins += 1;
   } else if (result === 'You lose.') {
     score.losses += 1;
-  } else if (result === 'Tie') {
+  } else if (result === 'Tie.') {
     score.ties += 1;
   }
   localStorage.setItem('score', JSON.stringify(score));
@@ -105,8 +105,8 @@ function playGame(playerMove) {
   document.querySelector('.js-result').innerHTML = result;
 
   document.querySelector('.js-moves').innerHTML = ` You
-    <img src="./images/${playerMove}-emoji.png" alt="" class="move-icon">
-    <img src="./images/${computerMove}-emoji.png" alt="" class="move-icon">
+    <img src="./images/${playerMove}-emoji.png" alt="${playerMove}" class="move-icon">
+    <img src="./images/${computerMove}-emoji.png" alt="${computerMove}" class="move-icon">
     computer`;
 }
 
