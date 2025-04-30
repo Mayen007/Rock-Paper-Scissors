@@ -12,7 +12,7 @@ let resetBtn = document.querySelector('.js-auto-play');
 function autoPlay() {
   if (!isAutoPlaying) {
     intervalId = setInterval(() => {
-      const playerMove = pickComputerMove();
+      const playerMove = ['rock', 'paper', 'scissors'][Math.floor(Math.random() * 3)];
       playGame(playerMove);
     }, 1000);
     resetBtn.innerHTML = "Stop";
@@ -23,6 +23,7 @@ function autoPlay() {
     resetBtn.innerHTML = "Auto-Play";
   }
 }
+
 
 document.querySelector('.js-rock-button').addEventListener('click', () => {
   playGame('rock');
@@ -44,6 +45,14 @@ document.querySelector('.js-auto-play').addEventListener('click', () => {
 });
 
 document.body.addEventListener('keydown', (event) => {
+  let allowKeyEvents = false;
+
+  setTimeout(() => {
+    allowKeyEvents = true;
+  }, 300);
+
+  if (!allowKeyEvents) return;
+
   if (event.key === 'r') {
     playGame('rock');
   } else if (event.key === 'p') {
@@ -60,7 +69,7 @@ document.body.addEventListener('keydown', (event) => {
 
 
 function playGame(playerMove) {
-
+  console.log('Game played with:', playerMove);
   const computerMove = pickComputerMove();
   let result = '';
 
