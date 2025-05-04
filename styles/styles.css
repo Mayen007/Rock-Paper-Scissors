@@ -5,54 +5,52 @@
 }
 
 :root {
-  --primary-color: #3498db;
-  --white-background-color: #fff;
-  --primary-blue: #4567b7;
+  --primary-blue: #305d9a;
+  --primary-blue-light: #4171c2;
   --accent-gold: #d4af37;
-  --deep-red: #ff1900;
+  --deep-red: #8b1e1e;
   --light-red: #ff4d4d;
-  --light-bg: #fefefe;
   --soft-gray: #999;
+  --bg-color: #121212;
+  --modal-bg: #1e1e1e;
+  --text-color: #f0f0f0;
 }
 
 body {
-  background-color: rgb(25, 25, 25);
-  color: var(--light-bg);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Exo 2', sans-serif;
   font-size: 17px;
+  font-kerning: auto;
 }
 
 .container {
-  margin: auto;
+  margin: 0 auto;
   max-width: 500px;
   width: 100%;
   text-align: center;
 }
 
 .title {
-  font-size: 30px;
+  font-family: 'Russo One', cursive;
+  font-size: 2.5rem;
   font-weight: bold;
-  margin-top: 40px;
-  margin-bottom: 30px;
+  margin: 2rem 0;
   text-transform: uppercase;
-  text-decoration: underline var(--accent-gold);
+  color: var(--accent-gold);
+  text-align: center;
 }
 
 .subtitle {
   font-size: 16px;
-  color: #999999;
+  color: var(--soft-gray);
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 2rem;
 }
 
 .subtitle::after {
-  content: " 🎮";
-  font-size: 18px;
-}
-
-.subtitle:hover {
-  color: var(--accent-gold);
-  transition: color 0.3s ease;
+  content: "🎮";
+  font-size: 16px;
 }
 
 .move-icon {
@@ -62,9 +60,9 @@ body {
 .btn-group {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
-  margin-top: 15px;
-  gap: 20px;
+  justify-content: center;
+  margin-top: 0.5rem;
+  gap: 1.3rem;
 }
 
 .move-button {
@@ -77,12 +75,20 @@ body {
 }
 
 .result {
-  font-size: 25px;
+  font-size: 1.5rem;
+  min-height: 2rem;
+  color: var(--accent-gold);
   font-weight: bold;
-  margin-top: 2rem;
-  margin-bottom: 1.2rem;
+  margin: 1.5rem 0;
   transition: transform 0.3s ease, opacity 0.3s ease;
   opacity: 0.8;
+}
+
+.js-moves {
+  color: var(--accent-gold);
+  min-height: 2rem;
+  font-size: 1.5rem;
+  text-align: center;
 }
 
 .result.show {
@@ -90,15 +96,10 @@ body {
   opacity: 1;
 }
 
-.auto-play {
-  background-color: var(--primary-blue);
-  color: white;
-  font-weight: bold;
-}
-
 .reset-score,
 .auto-play,
 .modal-content button {
+  font-family: 'Exo 2';
   width: 120px;
   border: none;
   font-size: 15px;
@@ -109,25 +110,39 @@ body {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.reset-score {
+.reset-score,
+#confirm-reset {
   background-color: var(--deep-red);
-  color: var(--light-bg);
+  color: var(--text-color);
   font-weight: bold;
   transition: 1s;
 }
 
-.reset-score:hover {
+.reset-score:hover,
+#confirm-reset:hover {
   background-color: var(--light-red);
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.auto-play:hover {
+.auto-play,
+#cancel-reset {
   background-color: var(--primary-blue);
+  color: var(--text-color);
+  font-weight: bold;
+  border: none
+}
+
+.auto-play:hover,
+#cancel-reset:hover {
+  background-color: var(--primary-blue-light);
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .js-score {
   margin-top: 40px;
   font-weight: 600;
   color: var(--accent-gold);
+  min-height: 2rem;
 }
 
 .key-div {
@@ -136,16 +151,16 @@ body {
   right: 15px;
   bottom: 10px;
   border: 1px solid none;
-  max-width: 250px;
-  padding: 13px 12px;
+  max-width: 300px;
+  padding: 13px 15px;
   text-align: left;
   border-radius: 10px;
   box-shadow: 2px 0 7px;
   animation: alert 4s ease-in-out infinite;
+  color: var(--accent-gold);
 }
 
 .key-div h4 {
-  text-decoration: underline var(--accent-gold);
   font-size: 1.3rem;
   text-align: center;
   margin-top: 10px;
@@ -157,18 +172,9 @@ ul li {
   margin-bottom: 0.75rem;
 }
 
-
 @media (max-width: 768px) {
   .key-div {
     display: none;
-  }
-
-  .key-div ul {
-    list-style: none;
-  }
-
-  .key-div li {
-    padding: 5px 0;
   }
 }
 
@@ -198,10 +204,11 @@ ul li {
 }
 
 .modal-content {
-  background-color: var(--white-background-color);
-  padding: 20px;
-  border: 1px solid #888;
-  width: 300px;
+  background-color: var(--modal-bg);
+  color: var(--text-color);
+  padding: 15px;
+  border: none;
+  max-width: 350px;
   text-align: center;
   border-radius: 8px;
   animation: fadeIn 0.3s ease-out;
@@ -220,32 +227,54 @@ ul li {
 }
 
 .modal-content p {
-  color: #333;
+  color: var(--text-color);
   margin-bottom: 10px;
 }
 
-.modal-content button {
-  margin-top: 10px;
+.scoreboard {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  text-align: center;
 }
 
-#confirm-reset {
-  background-color: var(--deep-red);
-  color: var(--light-bg);
-  border: none;
+.score-item {
+  background-color: rgba(255, 255, 255, 0.05);
+  text-align: center;
+  padding: 0.8rem 1.2rem;
+  border-radius: 12px;
+  font-weight: bold;
+  width: 100px;
+  transition: transform 0.2s ease;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
 }
 
-#confirm-reset:hover {
-  background-color: var(--light-red);
-  transition: background-color 0.3s ease, transform 0.2s ease;
+.icon {
+  display: block;
+  font-size: 1.3rem;
+  margin-bottom: 0.4rem;
 }
 
-#cancel-reset {
-  background-color: var(--primary-blue);
-  color: var(--light-bg);
-  border: none;
+.score-item span {
+  display: block;
+  font-size: 1.6rem;
+  margin-top: 0.5rem;
 }
 
-#cancel-reset:hover {
-  background-color: var(--primary-blue);
-  transition: background-color 0.3s ease, transform 0.2s ease;
+.score-item.win {
+  color: var(--accent-gold);
+}
+
+.score-item.loss {
+  color: var(--deep-red);
+}
+
+.score-item.tie {
+  color: var(--soft-gray);
+}
+
+.score-item:hover {
+  transform: scale(1.05);
 }

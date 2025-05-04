@@ -45,22 +45,19 @@ document.querySelector('.js-auto-play').addEventListener('click', () => {
 });
 
 document.body.addEventListener('keydown', (event) => {
-  let allowKeyEvents = false;
 
-  setTimeout(() => {
-    allowKeyEvents = true;
-  }, 300);
+  if (event.ctrlKey || event.metaKey) {
+    return;
+  }
 
-  if (!allowKeyEvents) return;
-
-  if (event.key === 'r') {
+  if (event.key.toLowerCase() === 'r') {
     playGame('rock');
-  } else if (event.key === 'p') {
+  } else if (event.key.toLowerCase() === 'p') {
     playGame('paper');
-  } else if (event.key === 's') {
+  } else if (event.key.toLowerCase() === 's') {
     playGame('scissors');
   }
-  else if (event.key === 'a') {
+  else if (event.key.toLowerCase() === 'a') {
     autoPlay();
   } else if (event.key === 'Backspace') {
     resetScore();
@@ -120,8 +117,11 @@ function playGame(playerMove) {
 }
 
 function updateScoreElement() {
-  document.querySelector('.js-score').innerHTML = `Wins: ${score.wins}. Losses: ${score.losses}. Ties: ${score.ties}`;
+  document.getElementById('win-count').textContent = score.wins;
+  document.getElementById('loss-count').textContent = score.losses;
+  document.getElementById('tie-count').textContent = score.ties;
 }
+
 
 function pickComputerMove() {
   const randomNumber = Math.random();

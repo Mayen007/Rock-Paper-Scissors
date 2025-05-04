@@ -6,14 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./styles/styles.css">
   <title>Rock Paper Scissors</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Exo+2:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
 
 <body>
   <main class="container">
-    <h1 class="title">Play Rock, Paper, Scissors!</h1>
-    <p class="subtitle">Choose your move by clicking an icon or using a keyboard shortcut below.</p>
-    <p class="subtitle">The computer will randomly choose its move.</p>
+    <h1 class="title">Rock Paper Scissors</h1>
+    <p class="subtitle">Choose your move by clicking an icon or using a keyboard shortcut below. The computer will
+      randomly choose its move.</p>
     <div class="btn-group">
       <button title="Rock" class="move-button js-rock-button">
         <img src="./images/rock-emoji.png" alt="Rock emoji" class="move-icon">
@@ -27,7 +29,18 @@
     </div>
     <p class="js-result result"></p>
     <p class="js-moves"></p>
-    <p class="js-score"></p>
+    <div class="js-score scoreboard">
+      <div class="score-item win">
+        <i class="fas fa-trophy icon win-icon"></i><br>Wins<br><span id="win-count">0</span>
+      </div>
+      <div class="score-item tie">
+        <i class="fas fa-handshake icon tie-icon"></i><br>Ties<br><span id="tie-count">0</span>
+      </div>
+      <div class="score-item loss">
+        <i class="fas fa-skull-crossbones icon loss-icon"></i><br>Losses<br><span id="loss-count">0</span>
+      </div>
+    </div>
+
     <div class="btn-group">
       <button class="reset-score js-reset-score">Reset Score</button>
       <button class="auto-play js-auto-play">Auto-Play</button>
@@ -46,8 +59,10 @@
       aria-hidden="true">
       <div class="modal-content">
         <p>Are you sure you want to reset the score?</p>
-        <button id="confirm-reset">Yes</button>
-        <button id="cancel-reset">No</button>
+        <div class="btn-group">
+          <button id="confirm-reset">Yes</button>
+          <button id="cancel-reset">No</button>
+        </div>
       </div>
     </div>
   </main>
