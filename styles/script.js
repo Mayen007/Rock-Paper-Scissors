@@ -155,3 +155,22 @@ function resetScore() {
 
   document.getElementById('cancel-reset').onclick = closeModal;
 };
+
+const themeToggleBtn = document.getElementById('theme-toggle');
+const body = document.body;
+
+function setTheme(theme) {
+  body.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+
+  const icon = theme === 'dark' ? 'fa-sun' : 'fa-moon';
+  themeToggleBtn.innerHTML = `<i class="fas ${icon}"></i>`;
+}
+
+const savedTheme = localStorage.getItem('theme') || 'dark';
+setTheme(savedTheme);
+
+themeToggleBtn.addEventListener('click', () => {
+  const newTheme = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  setTheme(newTheme);
+});

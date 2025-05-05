@@ -4,18 +4,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./images/golden-logo.png" type="image/x-icon">
+  <meta name="description"
+    content="Play Rock Paper Scissors against the computer. Choose your move and see if you can beat the computer!">
+  <meta name="keywords" content="Rock Paper Scissors, game, fun, play, computer, score, win, lose, tie">
+  <meta name="author" content="Mayen Akech">
   <link rel="stylesheet" href="./styles/styles.css">
   <title>Rock Paper Scissors</title>
   <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Exo+2:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 </head>
 
 <body>
+  <button class="theme-toggle" title="Toggle Theme" id="theme-toggle">
+    <i class="fas fa-moon"></i>
+  </button>
+
   <main class="container">
     <h1 class="title">Rock Paper Scissors</h1>
     <p class="subtitle">Choose your move by clicking an icon or using a keyboard shortcut below. The computer will
-      randomly choose its move.</p>
+      randomly choose its move. <i class="fa-solid fa-gamepad"></i>
+    </p>
     <div class="btn-group">
       <button title="Rock" class="move-button js-rock-button">
         <img src="./images/rock-emoji.png" alt="Rock emoji" class="move-icon">

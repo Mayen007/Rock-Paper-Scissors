@@ -16,7 +16,7 @@ A fun and responsive version of the classic **Rock, Paper, Scissors** game built
   - `R`: Select **Rock**
   - `P`: Select **Paper**
   - `S`: Select **Scissors**
-  - `A`: Toggle **Autoplay mode** 
+  - `A`: Toggle **Autoplay mode**
   - `Backspace`: **Reset** the score (with confirmation)
 
 - **🔁 Autoplay Mode**  
@@ -24,6 +24,9 @@ A fun and responsive version of the classic **Rock, Paper, Scissors** game built
 
 - **📈 Real-Time Results**  
   Immediate feedback after each move, including result display and score tracking.
+
+- **🌓 Dark/Light Theme**  
+  Switch between dark and light modes for comfortable gameplay in any lighting condition.
 
 - **📱 Responsive UI**  
   Designed to work well on both desktop and mobile devices. Shortcut keys tooltip is visible on larger screens only.
@@ -91,7 +94,6 @@ rock-paper-scissors/
 - Add sound effects for win/loss.
 - Track win/loss history.
 - Introduce animations for each move.
-- Add a dark/light theme toggle.
 
 ---
 
