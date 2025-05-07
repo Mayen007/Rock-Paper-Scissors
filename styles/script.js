@@ -111,9 +111,29 @@ function playGame(playerMove) {
   document.querySelector('.js-result').innerHTML = result;
 
   document.querySelector('.js-moves').innerHTML = ` You
-    <img src="./images/${playerMove}-emoji.png" alt="${playerMove}" class="move-icon">
-    <img src="./images/${computerMove}-emoji.png" alt="${computerMove}" class="move-icon">
+    <img src="./images/${playerMove}-emoji.png" alt="${playerMove}" class="move-icon" data-move="${playerMove}" data-player="true">
+    <img src="./images/${computerMove}-emoji.png" alt="${computerMove}" class="move-icon" data-move="${computerMove}" data-player="false">
     computer`;
+
+  setTimeout(() => {
+    const moveElements = document.querySelectorAll('.js-moves .move-icon');
+
+    if (moveElements.length === 2) {
+      const playerMoveEl = moveElements[0];
+      const computerMoveEl = moveElements[1];
+
+      playerMoveEl.classList.add(`animate-${playerMove}`);
+      computerMoveEl.classList.add(`animate-${computerMove}`);
+
+      if (result === 'You win.') {
+        playerMoveEl.classList.add('animate-win');
+        computerMoveEl.classList.add('animate-lose');
+      } else if (result === 'You lose.') {
+        playerMoveEl.classList.add('animate-lose');
+        computerMoveEl.classList.add('animate-win');
+      }
+    }
+  }, 100);
 }
 
 function updateScoreElement() {

@@ -1,4 +1,4 @@
-# 🯨 Rock Paper Scissors Game
+# 🎮 Rock Paper Scissors Game
 
 ## 🎮 Overview
 
@@ -33,6 +33,9 @@ A fun and responsive version of the classic **Rock, Paper, Scissors** game built
 
 - **🔒 Confirmation Modal**  
   A modal prompt prevents accidental score resets.
+
+- **✨ Move Animations**  
+  Unique animations for each move type (rock, paper, scissors) with special effects for winning and losing moves.
 
 ---
 
@@ -70,6 +73,7 @@ Simply open the `index.html` file in your preferred browser:
 - **HTML5**
 - **CSS3**
 - **Vanilla JavaScript**
+- **CSS Animations**
 
 ---
 
@@ -93,7 +97,7 @@ rock-paper-scissors/
 
 - Add sound effects for win/loss.
 - Track win/loss history.
-- Introduce animations for each move.
+- ~~Introduce animations for each move.~~ ✅
 
 ---
 
