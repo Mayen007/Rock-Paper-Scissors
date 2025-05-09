@@ -76,7 +76,7 @@ function playGame(playerMove) {
     } else if (computerMove === 'paper') {
       result = 'You win.';
     } else if (computerMove === 'scissors') {
-      result = 'Tie';
+      result = 'Tie.';
     }
 
   } else if (playerMove === 'paper') {
