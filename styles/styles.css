@@ -37,10 +37,9 @@ body {
   font-family: 'Exo 2', sans-serif;
   font-size: 17px;
   font-kerning: auto;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow-y: hidden;
+  min-height: 100vh;
 }
 
 .theme-toggle {
@@ -68,13 +67,13 @@ body {
   padding: 0 10px;
   display: flex;
   flex-direction: column;
-  flex: 1;
-  overflow-y: auto;
+  margin-top: 2rem;
 }
 
 .title {
   font-family: 'Bebas Neue', 'Russo One' cursive;
   font-size: 2.5rem;
+  white-space: nowrap;
   font-weight: bold;
   margin: 1rem 0;
   text-transform: uppercase;
@@ -231,6 +230,10 @@ ul li {
 (orientation: landscape) and (max-height: 500px) {
   .key-div {
     display: none;
+  }
+
+  .title {
+    font-size: 1.9rem;
   }
 
 }
