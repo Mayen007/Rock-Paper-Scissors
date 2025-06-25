@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="./images/golden-logo.png" type="image/x-icon">
+  <link rel="shortcut icon" href="./images/game-logo.png" type="image/x-icon">
   <meta name="description"
     content="Play Rock Paper Scissors against the computer. Choose your move and see if you can beat the computer!">
   <meta name="keywords" content="Rock Paper Scissors, game, fun, play, computer, score, win, lose, tie">
@@ -42,29 +42,97 @@
     <p class="js-moves"></p>
     <div class="js-score scoreboard">
       <div class="score-item win">
-        <i class="fas fa-trophy icon win-icon"></i><br>Wins<br><span id="win-count">0</span>
+        <i class="fas fa-trophy icon win-icon"></i>
+        <br>Wins<br>
+        <span id="win-count">0</span>
       </div>
       <div class="score-item tie">
-        <i class="fas fa-handshake icon tie-icon"></i><br>Ties<br><span id="tie-count">0</span>
+        <i class="fas fa-handshake icon tie-icon"></i>
+        <br>Ties<br>
+        <span id="tie-count">0</span>
       </div>
       <div class="score-item loss">
-        <i class="fas fa-skull-crossbones icon loss-icon"></i><br>Losses<br><span id="loss-count">0</span>
+        <i class="fas fa-skull-crossbones icon loss-icon"></i>
+        <br>Losses<br>
+        <span id="loss-count">0</span>
       </div>
     </div>
-
     <div class="btn-group">
       <button class="reset-score js-reset-score">Reset Score</button>
       <button class="auto-play js-auto-play">Auto-Play</button>
     </div>
+    <div class="statistics">
+      <h3>📊 Statistics</h3>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <i class="fas fa-percentage"></i>
+          <span>Win Rate</span>
+          <span id="win-rate">0%</span>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-fire"></i>
+          <span>Current Streak</span>
+          <span id="current-streak">0</span>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-medal"></i>
+          <span>Best Streak</span>
+          <span id="best-streak">0</span>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-gamepad"></i>
+          <span>Total Games</span>
+          <span id="total-games">0</span>
+        </div>
+      </div>
+    </div>
+    <!-- Game History Section -->
+    <div class="history-section">
+      <h3>📋 Recent Games</h3>
+      <div class="history-container" id="game-history">
+        <p class="no-history">No games played yet!</p>
+      </div>
+    </div>
+    <!-- Key Shortcuts Section -->
     <div class="key-div">
-      <h4>Shortcuts</h4>
-      <ul>
-        <li><strong>R</strong> = Rock</li>
-        <li><strong>P</strong> = Paper</li>
-        <li><strong>S</strong> = Scissors</li>
-        <li><strong>A</strong> = Auto-play</li>
-        <li><strong>Backspace</strong> = Reset Score</li>
-      </ul>
+      <h4>🎮 Shortcuts</h4>
+      <div class="shortcuts-grid">
+        <div class="shortcut-item">
+          <div class="shortcut-key">R</div>
+          <div class="shortcut-action">
+            <i class="fas fa-hand-rock shortcut-icon"></i>
+            Rock
+          </div>
+        </div>
+        <div class="shortcut-item">
+          <div class="shortcut-key">P</div>
+          <div class="shortcut-action">
+            <i class="fas fa-hand-paper shortcut-icon"></i>
+            Paper
+          </div>
+        </div>
+        <div class="shortcut-item">
+          <div class="shortcut-key">S</div>
+          <div class="shortcut-action">
+            <i class="fas fa-hand-scissors shortcut-icon"></i>
+            Scissors
+          </div>
+        </div>
+        <div class="shortcut-item">
+          <div class="shortcut-key">A</div>
+          <div class="shortcut-action">
+            <i class="fas fa-play shortcut-icon"></i>
+            Auto-play
+          </div>
+        </div>
+        <div class="shortcut-item">
+          <div class="shortcut-key backspace">BKSP</div>
+          <div class="shortcut-action">
+            <i class="fas fa-redo shortcut-icon"></i>
+            Reset Score
+          </div>
+        </div>
+      </div>
     </div>
     <div id="reset-modal" class="modal" tabindex="-1" role="dialog" aria-labelledby="reset-modal-label"
       aria-hidden="true">

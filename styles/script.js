@@ -107,6 +107,9 @@ function playGame(playerMove) {
   }
   localStorage.setItem('score', JSON.stringify(score));
 
+  const historyResult = result === 'You win.' ? 'win' : result === 'You lose.' ? 'loss' : 'tie';
+  addToHistory(playerMove, computerMove, historyResult);
+
   updateScoreElement();
   document.querySelector('.js-result').innerHTML = result;
 
@@ -138,10 +141,16 @@ function playGame(playerMove) {
 
 function updateScoreElement() {
   document.getElementById('win-count').textContent = score.wins;
-  document.getElementById('loss-count').textContent = score.losses;
   document.getElementById('tie-count').textContent = score.ties;
-}
+  document.getElementById('loss-count').textContent = score.losses;
 
+  // Add pulse animation to updated score
+  const scoreItems = document.querySelectorAll('.score-item');
+  scoreItems.forEach(item => {
+    item.classList.add('updated');
+    setTimeout(() => item.classList.remove('updated'), 600);
+  });
+}
 
 function pickComputerMove() {
   const randomNumber = Math.random();
@@ -168,6 +177,8 @@ function resetScore() {
     score.wins = 0;
     score.losses = 0;
     score.ties = 0;
+
+    resetGame();
     localStorage.removeItem('score');
     updateScoreElement();
     closeModal();
@@ -194,3 +205,109 @@ themeToggleBtn.addEventListener('click', () => {
   const newTheme = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   setTheme(newTheme);
 });
+
+// Game history and statistics
+let gameHistory = JSON.parse(localStorage.getItem('gameHistory')) || [];
+let currentStreak = parseInt(localStorage.getItem('currentStreak')) || 0;
+let bestStreak = parseInt(localStorage.getItem('bestStreak')) || 0;
+let streakType = localStorage.getItem('streakType') || '';
+
+function addToHistory(playerMove, computerMove, result) {
+  const historyItem = {
+    playerMove,
+    computerMove,
+    result,
+    timestamp: new Date().toLocaleTimeString()
+  };
+
+  gameHistory.unshift(historyItem);
+
+  // Keep only last 10 games
+  if (gameHistory.length > 10) {
+    gameHistory.pop();
+  }
+  localStorage.setItem('gameHistory', JSON.stringify(gameHistory));
+
+  updateStreak(result);
+  updateStatistics();
+  displayHistory();
+}
+
+// Update streak tracking
+function updateStreak(result) {
+  if (result === streakType) {
+    currentStreak++;
+  } else {
+    currentStreak = 1;
+    streakType = result;
+  }
+
+  if (result === 'win' && currentStreak > bestStreak) {
+    bestStreak = currentStreak;
+  }
+  localStorage.setItem('currentStreak', currentStreak.toString());
+  localStorage.setItem('bestStreak', bestStreak.toString());
+  localStorage.setItem('streakType', streakType);
+}
+
+// Update statistics display
+function updateStatistics() {
+  const totalGames = score.wins + score.losses + score.ties;
+  const winRate = totalGames > 0 ? Math.round((score.wins / totalGames) * 100) : 0;
+
+  document.getElementById('win-rate').textContent = `${winRate}%`;
+  document.getElementById('current-streak').textContent = currentStreak;
+  document.getElementById('best-streak').textContent = bestStreak;
+  document.getElementById('total-games').textContent = totalGames;
+}
+
+// Display game history
+function displayHistory() {
+  const historyContainer = document.getElementById('game-history');
+
+  if (gameHistory.length === 0) {
+    historyContainer.innerHTML = '<p class="no-history">No games played yet!</p>';
+    return;
+  }
+
+  const historyHTML = gameHistory.map(game => {
+    const resultClass = game.result;
+    const resultEmoji = game.result === 'win' ? '🏆' : game.result === 'loss' ? '💀' : '🤝';
+
+    return `
+      <div class="history-item ${resultClass}">
+        <div class="game-moves">
+          ${getMoveEmoji(game.playerMove)} vs ${getMoveEmoji(game.computerMove)}
+        </div>
+        <div class="game-result">${resultEmoji} ${game.result}</div>
+        <div class="game-time">${game.timestamp}</div>
+      </div>
+    `;
+  }).join('');
+
+  historyContainer.innerHTML = historyHTML;
+}
+
+// Helper function to get move emoji
+function getMoveEmoji(move) {
+  const emojis = { rock: '🗿', paper: '📄', scissors: '✂️' };
+  return emojis[move] || move;
+}
+
+// Update your reset function to clear history and stats
+function resetGame() {
+  score = { wins: 0, losses: 0, ties: 0 };
+  gameHistory = [];
+  currentStreak = 0;
+  bestStreak = 0;
+  streakType = '';
+
+  localStorage.removeItem('gameHistory');
+  localStorage.removeItem('currentStreak');
+  localStorage.removeItem('bestStreak');
+  localStorage.removeItem('streakType');
+
+  updateScoreElement();
+}
+updateStatistics();
+displayHistory();

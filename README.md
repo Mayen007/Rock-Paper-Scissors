@@ -22,20 +22,29 @@ A fun and responsive version of the classic **Rock, Paper, Scissors** game built
 - **🔁 Autoplay Mode**  
   Watch the computer play automatically — great for observing randomness and outcomes.
 
-- **📈 Real-Time Results**  
-  Immediate feedback after each move, including result display and score tracking.
+- **� Advanced Statistics**  
+  Track your performance with win rate percentage, current streaks, best streak records, and total games played.
+
+- **📋 Game History**  
+  View your last 10 games with detailed move information, results, and timestamps. All data persists across browser sessions.
+
+- **�📈 Real-Time Results**  
+  Immediate feedback after each move, including result display and comprehensive score tracking.
 
 - **🌓 Dark/Light Theme**  
   Switch between dark and light modes for comfortable gameplay in any lighting condition.
 
 - **📱 Responsive UI**  
-  Designed to work well on both desktop and mobile devices. Shortcut keys tooltip is visible on larger screens only.
+  Designed to work well on both desktop and mobile devices. Interactive shortcuts panel is visible on larger screens only.
 
 - **🔒 Confirmation Modal**  
   A modal prompt prevents accidental score resets.
 
 - **✨ Move Animations**  
   Unique animations for each move type (rock, paper, scissors) with special effects for winning and losing moves.
+
+- **💾 Persistent Data**  
+  All statistics, game history, and preferences are automatically saved to local storage.
 
 ---
 
@@ -96,8 +105,10 @@ rock-paper-scissors/
 ## 📌 To-Do
 
 - Add sound effects for win/loss.
-- Track win/loss history.
+- ~~Track win/loss history.~~ ✅
 - ~~Introduce animations for each move.~~ ✅
+- ~~Add advanced statistics tracking.~~ ✅
+- ~~Enhance shortcuts panel design.~~ ✅
 
 ---
 
