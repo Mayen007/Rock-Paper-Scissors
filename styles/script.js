@@ -143,13 +143,6 @@ function updateScoreElement() {
   document.getElementById('win-count').textContent = score.wins;
   document.getElementById('tie-count').textContent = score.ties;
   document.getElementById('loss-count').textContent = score.losses;
-
-  // Add pulse animation to updated score
-  const scoreItems = document.querySelectorAll('.score-item');
-  scoreItems.forEach(item => {
-    item.classList.add('updated');
-    setTimeout(() => item.classList.remove('updated'), 600);
-  });
 }
 
 function pickComputerMove() {
