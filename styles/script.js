@@ -9,6 +9,147 @@ let intervalId;
 
 let resetBtn = document.querySelector('.js-auto-play');
 
+// Visual Effects System
+class VisualEffects {
+  constructor() {
+    this.canvas = document.getElementById('particle-canvas');
+    this.ctx = this.canvas.getContext('2d');
+    this.particles = [];
+    this.confetti = [];
+
+    this.resizeCanvas();
+    window.addEventListener('resize', () => this.resizeCanvas());
+
+    this.animate();
+  }
+
+  resizeCanvas() {
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
+  }
+
+  // Create particles for win/loss effects
+  createParticles(x, y, color, count = 20) {
+    for (let i = 0; i < count; i++) {
+      this.particles.push({
+        x: x,
+        y: y,
+        vx: (Math.random() - 0.5) * 8,
+        vy: (Math.random() - 0.5) * 8,
+        life: 1,
+        decay: Math.random() * 0.02 + 0.01,
+        size: Math.random() * 4 + 2,
+        color: color
+      });
+    }
+  }
+
+  // Create confetti for big wins
+  createConfetti(count = 50) {
+    const colors = ['#d4af37', '#4CAF50', '#2196F3', '#FF9800', '#E91E63'];
+
+    for (let i = 0; i < count; i++) {
+      this.confetti.push({
+        x: Math.random() * this.canvas.width,
+        y: -10,
+        vx: (Math.random() - 0.5) * 4,
+        vy: Math.random() * 3 + 2,
+        rotation: Math.random() * 360,
+        rotationSpeed: (Math.random() - 0.5) * 10,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        size: Math.random() * 8 + 4,
+        life: 1
+      });
+    }
+  }
+
+  // Animate particles and confetti
+  animate() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+    // Animate particles
+    for (let i = this.particles.length - 1; i >= 0; i--) {
+      const particle = this.particles[i];
+
+      particle.x += particle.vx;
+      particle.y += particle.vy;
+      particle.life -= particle.decay;
+      particle.vx *= 0.98;
+      particle.vy *= 0.98;
+
+      if (particle.life <= 0) {
+        this.particles.splice(i, 1);
+        continue;
+      }
+
+      this.ctx.save();
+      this.ctx.globalAlpha = particle.life;
+      this.ctx.fillStyle = particle.color;
+      this.ctx.beginPath();
+      this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+      this.ctx.fill();
+      this.ctx.restore();
+    }
+
+    // Animate confetti
+    for (let i = this.confetti.length - 1; i >= 0; i--) {
+      const piece = this.confetti[i];
+
+      piece.x += piece.vx;
+      piece.y += piece.vy;
+      piece.rotation += piece.rotationSpeed;
+      piece.vy += 0.1; // gravity
+
+      if (piece.y > this.canvas.height + 10) {
+        this.confetti.splice(i, 1);
+        continue;
+      }
+
+      this.ctx.save();
+      this.ctx.translate(piece.x, piece.y);
+      this.ctx.rotate(piece.rotation * Math.PI / 180);
+      this.ctx.fillStyle = piece.color;
+      this.ctx.fillRect(-piece.size / 2, -piece.size / 2, piece.size, piece.size);
+      this.ctx.restore();
+    }
+
+    requestAnimationFrame(() => this.animate());
+  }
+
+  // Button click effect
+  buttonClickEffect(button) {
+    const rect = button.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+
+    this.createParticles(x, y, '#d4af37', 10);
+  }
+
+  // Win effect
+  winEffect() {
+    const centerX = this.canvas.width / 2;
+    const centerY = this.canvas.height / 2;
+
+    this.createParticles(centerX, centerY, '#4CAF50', 30);
+
+    // Add confetti for big wins
+    if (Math.random() < 0.3) { // 30% chance for confetti
+      this.createConfetti(30);
+    }
+  }
+
+  // Loss effect
+  lossEffect() {
+    const centerX = this.canvas.width / 2;
+    const centerY = this.canvas.height / 2;
+
+    this.createParticles(centerX, centerY, '#e41818', 20);
+  }
+}
+
+// Initialize visual effects
+const visualEffects = new VisualEffects();
+
 function autoPlay() {
   if (!isAutoPlaying) {
     intervalId = setInterval(() => {
@@ -24,7 +165,7 @@ function autoPlay() {
   }
 }
 
-
+// Event listeners
 document.querySelector('.js-rock-button').addEventListener('click', () => {
   playGame('rock');
 });
@@ -36,6 +177,7 @@ document.querySelector('.js-paper-button').addEventListener('click', () => {
 document.querySelector('.js-scissors-button').addEventListener('click', () => {
   playGame('scissors');
 });
+
 document.querySelector('.js-reset-score').addEventListener('click', () => {
   resetScore();
 });
@@ -44,8 +186,14 @@ document.querySelector('.js-auto-play').addEventListener('click', () => {
   autoPlay();
 });
 
-document.body.addEventListener('keydown', (event) => {
+// Add click effects to move buttons
+document.querySelectorAll('.move-button').forEach(button => {
+  button.addEventListener('click', () => {
+    visualEffects.buttonClickEffect(button);
+  });
+});
 
+document.body.addEventListener('keydown', (event) => {
   if (event.ctrlKey || event.metaKey) {
     return;
   }
@@ -56,15 +204,14 @@ document.body.addEventListener('keydown', (event) => {
     playGame('paper');
   } else if (event.key.toLowerCase() === 's') {
     playGame('scissors');
-  }
-  else if (event.key.toLowerCase() === 'a') {
+  } else if (event.key.toLowerCase() === 'a') {
     autoPlay();
   } else if (event.key === 'Backspace') {
     resetScore();
   }
 });
 
-
+// Enhanced playGame function with visual effects
 function playGame(playerMove) {
   console.log('Game played with:', playerMove);
   const computerMove = pickComputerMove();
@@ -78,7 +225,6 @@ function playGame(playerMove) {
     } else if (computerMove === 'scissors') {
       result = 'Tie.';
     }
-
   } else if (playerMove === 'paper') {
     if (computerMove === 'rock') {
       result = 'You win.';
@@ -87,7 +233,6 @@ function playGame(playerMove) {
     } else if (computerMove === 'scissors') {
       result = 'You lose.';
     }
-
   } else if (playerMove === 'rock') {
     if (computerMove === 'rock') {
       result = 'Tie.';
@@ -100,18 +245,36 @@ function playGame(playerMove) {
 
   if (result === 'You win.') {
     score.wins += 1;
+    visualEffects.winEffect(); // Add win effect
   } else if (result === 'You lose.') {
     score.losses += 1;
+    visualEffects.lossEffect(); // Add loss effect
   } else if (result === 'Tie.') {
     score.ties += 1;
   }
+
   localStorage.setItem('score', JSON.stringify(score));
 
   const historyResult = result === 'You win.' ? 'win' : result === 'You lose.' ? 'loss' : 'tie';
   addToHistory(playerMove, computerMove, historyResult);
 
   updateScoreElement();
-  document.querySelector('.js-result').innerHTML = result;
+
+  // Enhanced result display
+  const resultElement = document.querySelector('.js-result');
+  resultElement.innerHTML = result;
+  resultElement.className = 'js-result result'; // Reset classes
+
+  if (result === 'You win.') {
+    resultElement.classList.add('win');
+    // Check for big win (5+ win streak)
+    if (currentStreak >= 5 && streakType === 'win') {
+      resultElement.classList.add('big-win');
+      visualEffects.createConfetti(50);
+    }
+  } else if (result === 'You lose.') {
+    resultElement.classList.add('lose');
+  }
 
   document.querySelector('.js-moves').innerHTML = ` You
     <img src="./images/${playerMove}-emoji.png" alt="${playerMove}" class="move-icon" data-move="${playerMove}" data-player="true">
@@ -129,11 +292,11 @@ function playGame(playerMove) {
       computerMoveEl.classList.add(`animate-${computerMove}`);
 
       if (result === 'You win.') {
-        playerMoveEl.classList.add('animate-win');
-        computerMoveEl.classList.add('animate-lose');
+        playerMoveEl.classList.add('animate-win', 'winner', 'glowing');
+        computerMoveEl.classList.add('animate-lose', 'loser');
       } else if (result === 'You lose.') {
-        playerMoveEl.classList.add('animate-lose');
-        computerMoveEl.classList.add('animate-win');
+        playerMoveEl.classList.add('animate-lose', 'loser');
+        computerMoveEl.classList.add('animate-win', 'winner', 'glowing');
       }
     }
   }, 100);
@@ -178,8 +341,9 @@ function resetScore() {
   };
 
   document.getElementById('cancel-reset').onclick = closeModal;
-};
+}
 
+// Theme toggle functionality
 const themeToggleBtn = document.getElementById('theme-toggle');
 const body = document.body;
 
@@ -301,6 +465,10 @@ function resetGame() {
   localStorage.removeItem('streakType');
 
   updateScoreElement();
+  updateStatistics();
+  displayHistory();
 }
+
+// Initialize on page load
 updateStatistics();
 displayHistory();
